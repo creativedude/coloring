@@ -2,19 +2,24 @@
 var stack = [];
 var oldColor;
 var fillColor
-var drawmode = true;
+var drawmode = false;
 let img;
-
+console.log('hi mark');
 function preload() {
+  console.log('preloading')
   img = loadImage('./images/1.jpg');
 }
 
 
 function setup() {
+  console.log('running setup')
   createCanvas(windowWidth, windowHeight);
-  noSmooth();
+  // noSmooth();
   fillColor = color(0, 255, 0);
-  image(img, windowWidth, windowWidth);
+  console.log('img',img);
+
+  console.log('img',img);
+  image(img, 0, 0, windowWidth, windowWidth);
 }
 
 function windowResized() {
@@ -34,37 +39,38 @@ function matches(c, x, y) {
 function draw() {
   if (!stack.length) return;
   while (stack.length) {
-  var p = stack.pop();
-  var x1 = p.x,
-    y = p.y;
-  while (x1 > 0 && matches(oldColor, x1 - 1, y)) x1--;
+    console.log('rolling');
+    var p = stack.pop();
+    var x1 = p.x,
+      y = p.y;
+    while (x1 > 0 && matches(oldColor, x1 - 1, y)) x1--;
 
-  var spanAbove = false,
-    spanBelow = false;
+    var spanAbove = false,
+      spanBelow = false;
 
-  var x2 = x1 + 1;
-  var ip = 4 * (y * width + x2);
-  while (x2 < width && matches(oldColor, x2, y)) {
-    for (var i = 0; i < 4; i++)
-      pixels[ip++] = fillColor.levels[i];
+    var x2 = x1 + 1;
+    var ip = 4 * (y * width + x2);
+    while (x2 < width && matches(oldColor, x2, y)) {
+      for (var i = 0; i < 4; i++)
+        pixels[ip++] = fillColor.levels[i];
 
-    if (y > 0 && spanAbove !== matches(oldColor, x2, y - 1)) {
-      if (!spanAbove) stack.push({
-        x: x2,
-        y: y - 1
-      });
-      spanAbove = !spanAbove;
+      if (y > 0 && spanAbove !== matches(oldColor, x2, y - 1)) {
+        if (!spanAbove) stack.push({
+          x: x2,
+          y: y - 1
+        });
+        spanAbove = !spanAbove;
+      }
+      if (y < height - 1 && spanBelow !== matches(oldColor, x2, y + 1)) {
+        if (!spanBelow) stack.push({
+          x: x2,
+          y: y + 1
+        });
+        spanBelow = !spanBelow;
+      }
+      x2++;
     }
-    if (y < height - 1 && spanBelow !== matches(oldColor, x2, y + 1)) {
-      if (!spanBelow) stack.push({
-        x: x2,
-        y: y + 1
-      });
-      spanBelow = !spanBelow;
-    }
-    x2++;
   }
-}
   updatePixels();
   console.log('draw')
 }

@@ -14,7 +14,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noSmooth();
   fillColor = color(0, 255, 0);
-  image(img, 0, 0);
+  image(img, windowWidth, windowWidth);
 }
 
 function windowResized() {

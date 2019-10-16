@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
+    	<style>
+    		html,
+body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: black;
+}
+
+canvas {
+  display: block;
+}
+    	</style>
+	</head>
+	<body>
+		hello
+		<div class="settings">
+			<div class="input-block">
+				<label>Stroke width</label>
+				<input type="range" id="stroke" />
+			</div>
+			<div class="input-block">
+				<label>Red</label>
+				<input type="range" id="red" />
+			</div>
+			<div class="input-block">
+				<label>Green</label>
+				<input type="range" id="green" />
+			</div>
+			<div class="input-block">
+				<label>Blue</label>
+				<input type="range" id="blue" />
+			</div>
+
+			<div class="input-block">
+				<button id="draw" onclick="drawmodeSwitch();">draw</button>
+			</div>
+		</div>
+		<div>
+			<script src="./app.js"></script>
+		</div>
+	</body>
+</html>
